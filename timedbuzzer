@@ -1,0 +1,24 @@
+const byte buzzerPin = 9;  // Change this if the buzzer is connected to an other pin.
+const byte startButtonPin = 3; // pin 3 — button — GND
+
+
+void setup() {
+  pinMode(startButtonPin, INPUT_PULLUP);
+  pinMode(LED_BUILTIN, OUTPUT);
+}
+
+void loop() {
+  while (digitalRead(startButtonPin) == HIGH) ; // wait for the button to be pressed
+  digitalWrite(LED_BUILTIN, HIGH); // turn Built in LED on to show device is activated
+  
+  // key part of the code 
+  delay(45900000);
+  for (size_t i = 0; i < 10800; i++) {
+    tone(buzzerPin, 1000, 1000);
+    delay(2000);
+  }
+  
+  while (digitalRead(startButtonPin) == LOW) ; // ensure the button is released
+  delay(15); // anti bounce just to be sure
+  digitalWrite(LED_BUILTIN, LOW); // LED OFF to show end of cycle 
+}
